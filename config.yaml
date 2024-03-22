@@ -1,0 +1,10 @@
+http:
+  port: 4334
+logger:
+  logger_level: "dev"
+database:
+  host: "postgres"
+  user: "backend"
+  port: 5432
+  password: "Plata2024!"
+  database: "exchange"

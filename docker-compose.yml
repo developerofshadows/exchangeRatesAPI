@@ -1,0 +1,17 @@
+version: '3.8'
+
+services:
+  backend:
+    container_name: backend
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "4334:4334"
+    networks:
+      - network
+networks:
+  network:
+    name: internal_network
+    external: true
+

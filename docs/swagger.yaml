@@ -1,0 +1,130 @@
+basePath: /
+definitions:
+  models.RateByIDRequest:
+    properties:
+      id:
+        type: string
+    type: object
+  models.RateLatestRequest:
+    properties:
+      currency:
+        type: string
+    type: object
+  models.RateResponse:
+    properties:
+      price:
+        type: number
+      update_time:
+        type: string
+    type: object
+  models.RateUpdateRequest:
+    properties:
+      currency:
+        type: string
+    type: object
+  models.UpdateRateResponse:
+    properties:
+      id:
+        type: string
+    type: object
+host: localhost:3443
+info:
+  contact: {}
+  description: API server for checking exchange rates
+  title: ExchangeRate API
+  version: "1.0"
+paths:
+  /api/v1/rate/id:
+    post:
+      consumes:
+      - application/json
+      description: Get exchange rate by ID for specified currencies
+      operationId: id-rate
+      parameters:
+      - description: ID
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/models.RateByIDRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.RateResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      summary: GetRateByID
+      tags:
+      - get
+  /api/v1/rate/latest:
+    post:
+      consumes:
+      - application/json
+      description: Get latest exchange rate for specified currencies
+      operationId: latest-rate
+      parameters:
+      - description: Currency pair
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/models.RateLatestRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: float
+        "401":
+          description: Unauthorized
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      summary: GetLatestRate
+      tags:
+      - get
+  /api/v1/rate/update:
+    put:
+      consumes:
+      - application/json
+      description: Update exchange rate for specified currencies
+      operationId: update-rate
+      parameters:
+      - description: Currency pair
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/models.RateUpdateRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.UpdateRateResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      summary: UpdateRate
+      tags:
+      - update
+swagger: "2.0"
